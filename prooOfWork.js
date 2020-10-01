@@ -1,5 +1,6 @@
 const SHA256 = require('crypto-js/sha256');
 
+// Model class to define a block in the blockchain
 class Block{
     constructor(index,timeStamp,data,previousHash = ''){
         this.index=index;
@@ -9,6 +10,7 @@ class Block{
         this.hash = this.calculateHash();
     }
 
+    // The block hash is calculated using the SHA256 encryption algorithm for better security
     calculateHash(){
         return SHA256(this.index+this.previousHash+this.timeStamp+JSON.stringify(this.data)).toString();
     }
@@ -22,8 +24,8 @@ class Blockchain{
     }
 
     createGenesisBlock(){
-        var date = new Date();
-        return new Block(0,date,"Genesis Block","0");
+        var genesisCreationDate = new Date();
+        return new Block(0,genesisCreationDate,"Genesis Block","0");
     }
 
     getLatestBlock(){
